@@ -1,4 +1,4 @@
-//** vector v0.2
+//** vector v0.3
 
 //
 #include <iostream>
