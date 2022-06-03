@@ -6,6 +6,9 @@ using namespace std;
 //	원소의 개수
 int Size = 0;
 
+//	최대 개수
+int Capacity = 0;
+
 //	컨테이너
 int* Vector = nullptr;
 
@@ -14,9 +17,9 @@ void push_back(const int& _Value);
 
 int main(void)
 {
-	push_back(100);
-	push_back(200);
-
+	for (int i = 0; i < 10; ++i)
+		push_back(i * 100 + 100);
+	
 	for (int i = 0; i < Size; ++i)
 		cout << Vector[i] << endl;
 
@@ -27,28 +30,25 @@ int main(void)
 void push_back(const int& _Value)
 {
 	
-	if (Size <= 0)
-	{
-		++Size;
-		Vector = new int[Size];
-		Vector[Size - 1] = _Value;
-	}
-	else
-	{
-		++Size;
-		int* Temp = new int[Size];
+	Capacity += (Capacity <= 3) ? 1 : Capacity >> 1;
+	
+	int* Temp = new int[Capacity];
 
-		for (int i = 0; i < Size; ++i)
+	for (int i = 0; i < Size; ++i)
 		Temp[i] = Vector[i];
+
+	if (Vector)
+	{
 
 		delete Vector;
 		Vector = nullptr;
-
-		Temp[Size - 1] = _Value;
-		Vector = Temp;
-
 	}
-	
+
+	Temp[Size] = _Value;
+	++Size;
+
+	Vector = Temp;
+
 	
 }
 
