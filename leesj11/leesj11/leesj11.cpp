@@ -1,24 +1,37 @@
+// ** vector v0.7
 #include <iostream>
 
 using namespace std;
 
+//	원소의 개수
+int Size = 0;
+
+//	컨테이너
+int* Vector = nullptr;
+
+void push_back(const int* _Vector, const int& _Value);
+
+
 int main(void)
 {
-	int Size = 10;
-	int iter = 0;
-	int* Vector = new int[Size];
-
-
-	for (int i = 0; i < Size; ++i)
-		Vector[i] = i;
+	push_back(Vector, 100);
+	push_back(Vector, 200);
 
 	for (int i = 0; i < Size; ++i)
 		cout << Vector[i] << endl;
+		
 
 	return 0;
 }
 
+void push_back(const int* _Vector, const int& _Value)
+{
+	++Size;
+	Vector = new int[Size];
 
+
+	Vector[Size - 1] = _Value;
+}
 
 
 //배열
@@ -86,8 +99,6 @@ Vector[iter]
 
 
 */
-
-
 //	0 0000000 0
 //	0 0000001 1
 //	0 0000010 2
