@@ -9,28 +9,47 @@ int Size = 0;
 //	컨테이너
 int* Vector = nullptr;
 
-void push_back(const int* _Vector, const int& _Value);
+void push_back(const int& _Value);
 
 
 int main(void)
 {
-	push_back(Vector, 100);
-	push_back(Vector, 200);
+	push_back(100);
+	push_back(200);
 
 	for (int i = 0; i < Size; ++i)
 		cout << Vector[i] << endl;
-		
 
+	
 	return 0;
 }
 
-void push_back(const int* _Vector, const int& _Value)
+void push_back(const int& _Value)
 {
-	++Size;
-	Vector = new int[Size];
+	
+	if (Size <= 0)
+	{
+		++Size;
+		Vector = new int[Size];
+		Vector[Size - 1] = _Value;
+	}
+	else
+	{
+		++Size;
+		int* Temp = new int[Size];
 
+		for (int i = 0; i < Size; ++i)
+		Temp[i] = Vector[i];
 
-	Vector[Size - 1] = _Value;
+		delete Vector;
+		Vector = nullptr;
+
+		Temp[Size - 1] = _Value;
+		Vector = Temp;
+
+	}
+	
+	
 }
 
 
