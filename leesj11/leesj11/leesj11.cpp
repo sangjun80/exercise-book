@@ -27,43 +27,57 @@ int front();
 
 int back();
 
-int begin();
 
 int end();
 
-void Delete(const int& _where);
+void erase(const int& _where);
+
+void insert(const int& _where);
 
 
 
 
 int main(void)
 {
+	// ** 누적 횟수만큼 비효율
 	for (int i = 0; i < 10; ++i)
 		push_back(i * 100 + 100);
-	
+
 	pop_back();
+
 	push_back(10000);
-	
-	for (int i = begin() ; i != end(); ++i)
+
+	cout << endl << front() << endl;
+	cout << back() << endl << endl;
+
+
+	erase(3);
+	insert(1);
+
+
+
+	// ** 출력
+	for (int i = 0; i < Size; ++i)
 		cout << "Value : " << Vector[i] << endl;
+
 	cout << "Size : " << Size << endl;
 	cout << "Capacity : " << Capacity << endl << endl;
+
 
 	return 0;
 }
 
 void push_back(const int& _Value)
 {
-	
 	if (Capacity <= Size)
 	{
 		Capacity += (Capacity <= 3) ? 1 : Capacity >> 1;
 
-		int* Temp = new int[Capacity];
+		int* Temp = new int[Capacity + 1];
 
-		for (int i = 0; i < Capacity; ++i)
-			Vector[i] = NULL;
-		
+		for (int i = 0; i <= Capacity; ++i)
+			Temp[i] = NULL;
+
 		for (int i = 0; i < Size; ++i)
 			Temp[i] = Vector[i];
 
@@ -78,14 +92,12 @@ void push_back(const int& _Value)
 	}
 	else
 		Vector[Size] = _Value;
-	
+
 	++Size;
-	Vector[Capacity] = NULL;
 
 	cout << "Value : " << _Value << endl;
 	cout << "Size : " << Size << endl;
 	cout << "Capacity : " << Capacity << endl << endl;
-
 }
 
 
@@ -105,17 +117,13 @@ int back()
 	return Vector[Size - 1];
 }
 
-int begin()
-{
-	return front();
-}
 
 int end()
 {
 	return Vector[Size];
 }
 
-void Delete(const int& _where)
+void erase(const int& _where)
 {
 	// 즉정 위치에 있는 원서를 삭제하고 
 	--Size;
@@ -123,6 +131,15 @@ void Delete(const int& _where)
 		Vector[i] = Vector[i + 1];
 
 }
+
+void insert(const int& _where)
+{
+	++Size;
+	for (int i = _where + (-1); i < Size; ++i)
+		Vector[i] = Vector[i + 1];
+
+}
+
 
 // 숙제 인설트 특정위치에 데이터 삽입할 수 있는 함수 만들어라
 
