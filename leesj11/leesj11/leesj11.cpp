@@ -12,7 +12,28 @@ int Capacity = 0;
 //	컨테이너
 int* Vector = nullptr;
 
+
+
+
+
+// ** 컨테이너의 마지막 위치에 값을 추가
 void push_back(const int& _Value);
+
+
+
+void pop_back();
+
+int front();
+
+int back();
+
+int begin();
+
+int end();
+
+void Delete(const int& _where);
+
+
 
 
 int main(void)
@@ -20,37 +41,90 @@ int main(void)
 	for (int i = 0; i < 10; ++i)
 		push_back(i * 100 + 100);
 	
-	for (int i = 0; i < Size; ++i)
-		cout << Vector[i] << endl;
-
+	pop_back();
+	push_back(10000);
 	
+	for (int i = begin() ; i != end(); ++i)
+		cout << "Value : " << Vector[i] << endl;
+	cout << "Size : " << Size << endl;
+	cout << "Capacity : " << Capacity << endl << endl;
+
 	return 0;
 }
 
 void push_back(const int& _Value)
 {
 	
-	Capacity += (Capacity <= 3) ? 1 : Capacity >> 1;
-	
-	int* Temp = new int[Capacity];
-
-	for (int i = 0; i < Size; ++i)
-		Temp[i] = Vector[i];
-
-	if (Vector)
+	if (Capacity <= Size)
 	{
+		Capacity += (Capacity <= 3) ? 1 : Capacity >> 1;
 
-		delete Vector;
-		Vector = nullptr;
+		int* Temp = new int[Capacity];
+
+		for (int i = 0; i < Capacity; ++i)
+			Vector[i] = NULL;
+		
+		for (int i = 0; i < Size; ++i)
+			Temp[i] = Vector[i];
+
+		if (Vector)
+		{
+			delete Vector;
+			Vector = nullptr;
+		}
+
+		Temp[Size] = _Value;
+		Vector = Temp;
 	}
-
-	Temp[Size] = _Value;
-	++Size;
-
-	Vector = Temp;
-
+	else
+		Vector[Size] = _Value;
 	
+	++Size;
+	Vector[Capacity] = NULL;
+
+	cout << "Value : " << _Value << endl;
+	cout << "Size : " << Size << endl;
+	cout << "Capacity : " << Capacity << endl << endl;
+
 }
+
+
+void pop_back()
+{
+	//삭제만해서 값을 받아오지않음
+	--Size;
+}
+
+int front()
+{
+	return Vector[0];
+}
+
+int back()
+{
+	return Vector[Size - 1];
+}
+
+int begin()
+{
+	return front();
+}
+
+int end()
+{
+	return Vector[Size];
+}
+
+void Delete(const int& _where)
+{
+	// 즉정 위치에 있는 원서를 삭제하고 
+	--Size;
+	for (int i = _where + (-1); i < Size; ++i)
+		Vector[i] = Vector[i + 1];
+
+}
+
+// 숙제 인설트 특정위치에 데이터 삽입할 수 있는 함수 만들어라
 
 
 //배열
