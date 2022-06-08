@@ -82,12 +82,18 @@ void push_back(const int& _Value)
 			Vector = nullptr;
 		}
 
+		// 임시의 값(해당 주소)를 복사해옴.
 		Temp[Size] = _Value;
+
+		// 임시의 주소값에 복사해둔 값과
+		// 추가된 새로운 값을 다시
+		// 전역변수로 저장되어 있는 Vector로 가져옴.
 		Vector = Temp;
 	}
 	else
+		// 마지막 위치에 값 추가
 		Vector[Size] = _Value;
-
+	// 현재 원소의 최대값 증가.
 	++Size;
 
 	cout << "Value : " << _Value << endl;
